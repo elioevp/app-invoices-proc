@@ -11,7 +11,6 @@ on:
 
 jobs:
   build_and_deploy_job:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     steps:
@@ -20,20 +19,14 @@ jobs:
           submodules: true
           lfs: false
 
-      # ➡️ PASO 1: Configurar Node.js
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20' # Puedes cambiar la versión si lo necesitas
-
-      # ➡️ PASO 2: Instalar dependencias y compilar la aplicación
-      - name: Build app
+      # Paso para compilar y mostrar el error si existe
+      - name: Build and Install
+        working-directory: ./get-invoices-frontend # Asegura que se ejecute en la carpeta correcta
         run: |
-          cd ./get-invoices-frontend # Navega al directorio correcto
           npm install
           npm run build
-          
-      # ➡️ PASO 3: Desplegar la carpeta 'dist'
+
+      # Paso final de despliegue
       - name: Deploy to Static Web Apps
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
@@ -41,9 +34,8 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_LIVELY_MEADOW_0A9F2770F }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "/get-invoices-frontend" # Ahora esta es la carpeta base
-          output_location: "dist" # La carpeta que el paso anterior creó
-          
+          app_location: "/get-invoices-frontend"
+          output_location: "build"
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
@@ -53,14 +45,8 @@ jobs:
         id: closepullrequest
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_LIVELY_MEADOW_0A9F2770F }}
-          action: "close"
-
-
-
-
-
-
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_CALM_TREE_06902F40F }}
+          action: "close"#end
 
 
 
