@@ -1,4 +1,4 @@
-name: Build and deploy #15 Python project to Azure Function App - proc-function7
+name: Build and deploy #16 Python project to Azure Function App - proc-function7
 
 on:
   push:
@@ -47,12 +47,14 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: python-app
-      
+          
+      - name: 'Login to Azure'
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_7E1ACEA18B19491CA751E8970D92748E }}
+          
       - name: 'Deploy to Azure Functions with Azure CLI'
         uses: azure/CLI@v1
         with:
           inlineScript: |
             az functionapp deployment source config-zip --resource-group elio-validator --name proc-function7 --src release.zip
-        env:
-          AZURE_FUNCTIONS_PUBLISH_PROFILE: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_7E1ACEA18B19491CA751E8970D92748E }}
-
