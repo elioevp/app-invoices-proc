@@ -41,7 +41,7 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_LIVELY_MEADOW_0A9F2770F }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "./get-invoices-frontend" # Ahora esta es la carpeta base
+          app_location: "/get-invoices-frontend" # Ahora esta es la carpeta base
           output_location: "dist" # La carpeta que el paso anterior creó
           
   close_pull_request_job:
@@ -55,6 +55,7 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_LIVELY_MEADOW_0A9F2770F }}
           action: "close"
+
 
 
 
