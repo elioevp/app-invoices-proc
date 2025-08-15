@@ -51,6 +51,6 @@ jobs:
         with:
           app-name: 'proc-function7'
           slot-name: 'Production'
-          package: './funcX-v6'
+          package: './funcX-v6/receipt_processor' #lugar de la funcion en el directorio
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_7E1ACEA18B19491CA751E8970D92748E }}
           sku: 'flexconsumption'
