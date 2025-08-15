@@ -7,7 +7,6 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'  # Esto puede ser ignorado
   PYTHON_VERSION: '3.10'
 
 jobs:
@@ -32,7 +31,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: python-app
-          path: './funcX-v6' # La carpeta que se empaquetará
+          path: './funcX-v6'
 
   deploy:
     runs-on: ubuntu-latest
@@ -43,13 +42,14 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: python-app
-          
+          path: 'python-app'
+
       - name: 'Deploy to Azure Functions'
         uses: Azure/functions-action@v1
         id: deploy-to-function
         with:
           app-name: 'proc-function7'
           slot-name: 'Production'
-          package: 'python-app/receipt_processor' # <-- ¡Ruta corregida!
+          package: 'python-app' # <--- Changed the package path
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_7E1ACEA18B19491CA751E8970D92748E }}
           sku: 'flexconsumption'
