@@ -8,7 +8,6 @@ on:
     types: [opened, synchronize, reopened, closed]
     branches:
       - master
-
 jobs:
   build_and_deploy_job:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
@@ -20,20 +19,20 @@ jobs:
           submodules: true
           lfs: false
 
-      # ➡️ PASO 1: Configurar Node.js
+      # PASO 1: Configurar Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20' # Puedes cambiar la versión si lo necesitas
+          node-version: '20'
 
-      # ➡️ PASO 2: Instalar dependencias y compilar la aplicación
+      # PASO 2: Instalar dependencias y compilar la aplicación
       - name: Build app
+        working-directory: ./get-invoices-frontend # Usamos working-directory para navegar
         run: |
-          cd ./get-invoices-frontend # Navega al directorio correcto
           npm install
           npm run build
           
-      # ➡️ PASO 3: Desplegar la carpeta 'dist'
+      # PASO 3: Desplegar la carpeta 'dist'
       - name: Deploy to Static Web Apps
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
@@ -41,8 +40,9 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_LIVELY_MEADOW_0A9F2770F }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "/get-invoices-frontend" # Ahora esta es la carpeta base
-          output_location: "dist" # La carpeta que el paso anterior creó
+          app_location: "/get-invoices-frontend" # Ruta a la app
+          output_location: "dist" # Carpeta de salida
+
           
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
@@ -55,6 +55,7 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_LIVELY_MEADOW_0A9F2770F }}
           action: "close"
+
 
 
 
