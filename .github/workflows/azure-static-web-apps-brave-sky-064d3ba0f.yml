@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master
+    paths: 
+      - 'report-invoices-frontend/**' # Agrega esta línea  
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
@@ -44,3 +46,4 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_BRAVE_SKY_064D3BA0F }}
           action: "close"
+
