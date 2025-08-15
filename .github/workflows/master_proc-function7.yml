@@ -1,4 +1,4 @@
-name: Build and deploy #10 Python project to Azure Function App - proc-function7
+name: Build and deploy #11 Python project to Azure Function App - proc-function7
 
 on:
   push:
