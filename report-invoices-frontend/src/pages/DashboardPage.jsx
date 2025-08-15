@@ -23,7 +23,7 @@ const DashboardPage = () => {
         setReportData(null);
 
         try {
-                                               const apiUrl = import.meta.env.VITE_API_URL || 'https://report-backend.azurewebsites.net/api' || 'http://localhost:3000/api';
+                                               const apiUrl = import.meta.env.VITE_API_URL || 'https://report1-invoices-backend-aqe2gzbrbqenhtey.eastus2-01.azurewebsites.net/api' || 'http://localhost:3000/api';
             const response = await axios.get(`${apiUrl}/report`, {
                 params: {
                     username: username,
