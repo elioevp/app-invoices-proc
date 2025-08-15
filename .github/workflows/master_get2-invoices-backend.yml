@@ -28,6 +28,7 @@ jobs:
           npm install
           npm run build --if-present
           npm run test --if-present
+          working-directory: './get-invoices-backend'
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -52,4 +53,5 @@ jobs:
           app-name: 'get2-invoices-backend'
           slot-name: 'Production'
           package: .
+
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CDBC1C2B8EBC44CCBD4F46AB0E6AAA2E }}
