@@ -8,6 +8,7 @@ on:
     types: [opened, synchronize, reopened, closed]
     branches:
       - master
+
 jobs:
   build_and_deploy_job:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
@@ -18,32 +19,20 @@ jobs:
         with:
           submodules: true
           lfs: false
-
-      # PASO 1: Configurar Node.js
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-
-      # PASO 2: Instalar dependencias y compilar la aplicación
-      - name: Build app
-        working-directory: ./get-invoices-frontend # Usamos working-directory para navegar
-        run: |
-          npm install
-          npm run build
-          
-      # PASO 3: Desplegar la carpeta 'dist'
-      - name: Deploy to Static Web Apps
+      - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_LIVELY_MEADOW_0A9F2770F }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "/get-invoices-frontend" # Ruta a la app
-          output_location: "dist" # Carpeta de salida
+          ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
+          # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
+          app_location: "/get-invoices-frontend" # <-- ¡Esta es la ruta corregida!
+          api_location: "" # Déjalo en blanco si no tienes una API
+          output_location: "dist" # La carpeta que el script de compilación crea
+          ###### End of Repository/Build Configurations ######
 
-          
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
@@ -55,14 +44,3 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_LIVELY_MEADOW_0A9F2770F }}
           action: "close"
-
-
-
-
-
-
-
-
-
-
-
