@@ -5,7 +5,7 @@ name: Deploy Backend to Azure App Service
 on:
   push:
     branches:
-      - main  # o "master", si es tu rama principal
+      - master  # o "main", si es tu rama principal
     paths:
       - 'report-invoices-backend/**' # Esta línea es crucial: el flujo se ejecuta solo si hay cambios en este subdirectorio.
   workflow_dispatch:
