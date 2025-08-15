@@ -1,4 +1,4 @@
-name: Build and deploy #9 Python project to Azure Function App - proc-function7
+name: Build and deploy #10 Python project to Azure Function App - proc-function7
 
 on:
   push:
@@ -49,7 +49,7 @@ jobs:
         id: deploy-to-function
         with:
           app-name: 'proc-function7'
+          slot-name: 'Production'
           package: 'python-app'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_7E1ACEA18B19491CA751E8970D92748E }}
           sku: 'flexconsumption'
-
