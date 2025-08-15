@@ -24,7 +24,7 @@ jobs:
       - name: Set up Node.js environment
         uses: actions/setup-node@v3
         with:
-          node-version: '18.x' # Asegúrate de que esta versión coincida con la de tu backend
+          node-version: '22.x' # Asegúrate de que esta versión coincida con la de tu backend
 
       # Paso 3: Instala dependencias y compila la aplicación
       - name: npm install and build
