@@ -1,0 +1,46 @@
+# Nombre del flujo de trabajo
+name: Deploy Backend to Azure App Service
+
+# Define el evento que dispara el flujo de trabajo
+on:
+  push:
+    branches:
+      - main  # o "master", si es tu rama principal
+    paths:
+      - 'report-invoices-backend/**' # Esta línea es crucial: el flujo se ejecuta solo si hay cambios en este subdirectorio.
+  workflow_dispatch:
+
+# Define los trabajos (jobs) que se ejecutarán
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest # Sistema operativo de la máquina virtual que ejecuta el trabajo
+
+    steps:
+      # Paso 1: Obtén tu código del repositorio
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      # Paso 2: Configura el entorno de Node.js
+      - name: Set up Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x' # Asegúrate de que esta versión coincida con la de tu backend
+
+      # Paso 3: Instala dependencias y compila la aplicación
+      - name: npm install and build
+        run: |
+          npm install
+          npm run build --if-present
+        working-directory: './report-invoices-backend' # Indica a Git en qué subdirectorio trabajar
+
+      # Paso 4: Despliega en Azure App Service
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          # Nombre del App Service en Azure (usando tu nombre)
+          app-name: 'report1-invoices-backend'
+          slot-name: 'production'
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          # Ruta de la aplicación a desplegar dentro del repositorio (usando tu subdirectorio)
+          package: './report-invoices-backend'
