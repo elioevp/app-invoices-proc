@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: "https://validator-v-back-dev-b6dccuhpcrenffbm.canadacentral-01.azurewebsites.net",
+  baseURL: "https://get2-invoices-backend-cwbmane5hfc7gze0.eastus-01.azurewebsites.net",
 });
 
 api.interceptors.response.use(
