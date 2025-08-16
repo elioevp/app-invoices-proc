@@ -3,8 +3,17 @@ import datetime
 import json
 import logging
 
-app = func.FunctionApp()
+# Add logging to see if the file is being executed
+logging.info("--- function_app.py: Starting up ---")
 
-from receipt_processor import blueprint as receipt_blueprint
-app.register_blueprint(receipt_blueprint)
+app = func.FunctionApp()
+logging.info("--- function_app.py: FunctionApp created ---")
+
+
+try:
+    from receipt_processor import blueprint as receipt_blueprint
+    app.register_blueprint(receipt_blueprint)
+    logging.info("--- function_app.py: Blueprint registered successfully ---")
+except Exception as e:
+    logging.error(f"--- function_app.py: Error registering blueprint: {e} ---")
 
