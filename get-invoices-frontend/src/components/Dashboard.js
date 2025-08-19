@@ -111,7 +111,7 @@ const Dashboard = () => {
         <h2>Dashboard</h2>
         {username && <p style={{ color: 'red', fontSize: '1.2em', fontWeight: 'bold' }}>Welcome, {username}!</p>}
         <div>
-          <button onClick={() => window.open('https://brave-sky-064d3ba0f.2.azurestaticapps.net', '_blank')} style={{ padding: '10px 20px', fontSize: '1.3em', marginRight: '10px' }}>
+          <button onClick={() => window.open(`https://brave-sky-064d3ba0f.2.azurestaticapps.net?username=${username}`, '_blank')} style={{ padding: '10px 20px', fontSize: '1.3em', marginRight: '10px' }}>
             Acceso a "invoices report"
           </button>
           <button onClick={handleLogout} style={{ padding: '10px 20px', fontSize: '1.3em' }}>Logout</button>

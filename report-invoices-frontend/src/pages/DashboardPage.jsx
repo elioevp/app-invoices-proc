@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
@@ -10,6 +10,14 @@ const DashboardPage = () => {
     const [reportData, setReportData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+
+    useEffect(() => {
+        const searchParams = new URLSearchParams(window.location.search);
+        const userFromUrl = searchParams.get('username');
+        if (userFromUrl) {
+            setUsername(userFromUrl);
+        }
+    }, []);
 
     const handleFetchReport = async (e) => {
         e.preventDefault();
@@ -112,6 +120,7 @@ const DashboardPage = () => {
                                     onChange={(e) => setUsername(e.target.value)}
                                     placeholder="ej: elio villalobos"
                                     required
+                                    readOnly
                                 />
                             </div>
                             <div className="col-lg-3 col-md-6 mb-3">
