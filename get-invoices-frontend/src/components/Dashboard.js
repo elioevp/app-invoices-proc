@@ -110,7 +110,12 @@ const Dashboard = () => {
       <div style={{ padding: '10px', borderBottom: '1px solid #ccc', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <h2>Dashboard</h2>
         {username && <p style={{ color: 'red', fontSize: '1.2em', fontWeight: 'bold' }}>Welcome, {username}!</p>}
-        <button onClick={handleLogout} style={{ padding: '10px 20px', fontSize: '1.3em' }}>Logout</button>
+        <div>
+          <button onClick={() => window.open('https://brave-sky-064d3ba0f.2.azurestaticapps.net', '_blank')} style={{ padding: '10px 20px', fontSize: '1.3em', marginRight: '10px' }}>
+            Acceso a "invoices report"
+          </button>
+          <button onClick={handleLogout} style={{ padding: '10px 20px', fontSize: '1.3em' }}>Logout</button>
+        </div>
       </div>
       <div style={{ display: 'flex', flex: 1 }}>
         {/* Left Panel: Directories */}
