@@ -30,7 +30,8 @@ const Login = ({ onLoginSuccess }) => {
 
   return (
     <div style={{ textAlign: 'center', padding: '20px' }}>
-      <h1>validator-v</h1>
+      <h1>facturas-proc</h1>
+      <p style={{ fontSize: '1.2em', color: '#666' }}>Procesa tus facturas con IA y guarda los datos a la nube, mantén el control de tus gastos</p>
       <h2>{isRegister ? 'Register' : 'Login'}</h2>
       <form onSubmit={handleSubmit}>
         <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} style={{ padding: '10px', fontSize: '1.3em', margin: '5px 0' }} />

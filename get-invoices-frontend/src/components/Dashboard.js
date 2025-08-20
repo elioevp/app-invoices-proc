@@ -10,7 +10,7 @@ const Dashboard = () => {
   const [filesInSelectedDirectory, setFilesInSelectedDirectory] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
   const [username, setUsername] = useState('');
-  const [showInfo, setShowInfo] = useState(false);
+  
   const navigate = useNavigate();
 
   const handleLogout = useCallback(() => {
@@ -107,7 +107,7 @@ const Dashboard = () => {
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh', flexDirection: 'column' }}>
-      <h1 style={{ textAlign: 'center', padding: '10px' }}>validator-v</h1>
+      <h1 style={{ textAlign: 'center', padding: '10px' }}>facturas-proc</h1>
       <div style={{ padding: '10px', borderBottom: '1px solid #ccc', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <h2>Dashboard</h2>
         {username && <p style={{ color: 'red', fontSize: '1.2em', fontWeight: 'bold' }}>Welcome, {username}!</p>}
@@ -123,41 +123,7 @@ const Dashboard = () => {
         <div style={{ width: '20%', borderRight: '1px solid #ccc', padding: '10px', overflowY: 'auto' }}>
           <div style={{ position: 'relative', display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
             <h3>Directories</h3>
-            <span 
-              style={{ 
-                marginLeft: '10px', 
-                cursor: 'pointer', 
-                border: '1px solid black', 
-                borderRadius: '50%', 
-                width: '20px', 
-                height: '20px', 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center' 
-              }}
-              onMouseEnter={() => setShowInfo(true)}
-              onMouseLeave={() => setShowInfo(false)}
-            >
-              i
-            </span>
-            {showInfo && (
-              <p style={{ 
-                position: 'absolute',
-                top: '30px',
-                left: '0',
-                width: '220px',
-                fontSize: '0.45em', 
-                color: '#333', 
-                border: '1px solid #ddd', 
-                padding: '10px', 
-                borderRadius: '8px', 
-                backgroundColor: '#f9f9f9',
-                zIndex: 1,
-                boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-              }}>
-                Coloque en Directories un descriptivo del viaje o mes o mezcla de ambos para un grupo de facturas. Ejemplos: viaje-caracas, junio-2025
-              </p>
-            )}
+            
           </div>
           <input
             type="text"
