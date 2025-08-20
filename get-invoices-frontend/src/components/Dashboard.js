@@ -146,7 +146,7 @@ const Dashboard = () => {
                 top: '30px',
                 left: '0',
                 width: '220px',
-                fontSize: '0.7em', 
+                fontSize: '0.45em', 
                 color: '#333', 
                 border: '1px solid #ddd', 
                 padding: '10px', 
