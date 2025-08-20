@@ -102,7 +102,7 @@ const DashboardPage = () => {
             {/* Encabezado Atractivo */}
             <div className="text-center mb-5">
                 <h1 className="display-5 fw-bold">Reporte de Liquidación</h1>
-                <p className="lead text-muted">Consulte la relación final de facturas por usuario y directorio.</p>
+                <p className="lead text-primary fw-bold">Consulte la relación final de facturas por usuario y directorio.</p>
             </div>
 
             {/* Tarjeta de Consulta */}
