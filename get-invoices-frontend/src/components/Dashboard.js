@@ -107,7 +107,7 @@ const Dashboard = () => {
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh', flexDirection: 'column' }}>
-      <h1 className="display-5 fw-bold text-center p-3">facturas-proc</h1>
+      <h1 style={{ textAlign: 'center', padding: '10px' }}>facturas-proc</h1>
       <div style={{ padding: '10px', borderBottom: '1px solid #ccc', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <h2>Dashboard</h2>
         {username && <p style={{ color: 'red', fontSize: '1.2em', fontWeight: 'bold' }}>Welcome, {username}!</p>}

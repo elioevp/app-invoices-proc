@@ -30,7 +30,7 @@ const Login = ({ onLoginSuccess }) => {
 
   return (
     <div style={{ textAlign: 'center', padding: '20px' }}>
-      <h1 className="display-5 fw-bold">facturas-proc</h1>
+      <h1>facturas-proc</h1>
       <p style={{ fontSize: '1.2em', color: '#DC3545', fontWeight: 'bold' }}>Procesa tus facturas con IA y guarda los datos a la nube, mantén el control de tus gastos</p>
       <h2>{isRegister ? 'Register' : 'Login'}</h2>
       <form onSubmit={handleSubmit}>
