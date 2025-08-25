@@ -33,6 +33,6 @@ jobs:
       - name: 'Deploy to Azure Function App'
         uses: Azure/functions-action@v1
         with:
-          app-name: YOUR_FUNCTION_APP_NAME_HERE # <-- 🚨 ACTION REQUIRED
+          app-name: func701 # <--ACTION REQUIRED
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
-          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }} # <-- 🚨 ACTION REQUIRED
+          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }} # <--ACTION REQUIRED
