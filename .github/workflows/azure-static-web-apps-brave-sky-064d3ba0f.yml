@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - master
-    paths: 
-      - 'report-invoices-frontend/**' # Agrega esta línea  
+    paths:
+      - 'report-invoices-frontend/**'  
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:

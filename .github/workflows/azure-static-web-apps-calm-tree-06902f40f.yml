@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'get-invoices-frontend/**'
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
