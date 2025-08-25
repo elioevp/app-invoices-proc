@@ -6,7 +6,7 @@ import logging
 app = func.FunctionApp()
 
 # Test deployment from GitHub Actions
-# ne test deploy
+# Test deploy 3
 
 from receipt_processor import blueprint as receipt_blueprint
 app.register_blueprint(receipt_blueprint)
