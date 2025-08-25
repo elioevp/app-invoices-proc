@@ -1,6 +1,4 @@
-
 name: Deploy Python Function to Azure
-
 on:
   push:
     branches:
@@ -9,8 +7,8 @@ on:
       - 'funcx-v7/**'
 
 env:
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: 'funcx-v7'  # set this to the path to your function app project, defaults to the repository root
-  PYTHON_VERSION: '3.10'                    # set this to the python version to use
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: 'funcx-v7'
+  PYTHON_VERSION: '3.10'
 
 jobs:
   build-and-deploy:
@@ -29,10 +27,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
         working-directory: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
-
+      
+      # *** Sección modificada aquí ***
       - name: 'Deploy to Azure Function App'
         uses: Azure/functions-action@v1
         with:
-          app-name: func701 # <--ACTION REQUIRED
+          app-name: func701
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
-          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }} # <--ACTION REQUIRED
+          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
+          scm-do-build-during-deployment: false
+          enable-oryx-build: false
+
