@@ -9,7 +9,6 @@ on:
 
 env:
   AZURE_FUNCTIONAPP_PACKAGE_PATH: 'funcx-v7'
-  PYTHON_VERSION: '3.10'
 
 jobs:
   build-and-deploy:
@@ -18,39 +17,19 @@ jobs:
       - name: 'Checkout repository'
         uses: actions/checkout@v3
 
-      - name: 'Set up Python version'
-        uses: actions/setup-python@v4
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-
-            jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: 'Checkout repository'
-        uses: actions/checkout@v3
-
       - name: 'Login to Azure'
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: 'Deploy to Azure Function App'
-        uses: Azure/functions-action@v1
-        with:
-          app-name: func701
-          package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
-
-      - name: 'Login to Azure'
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: 'Create deployment package'
+        run: |
+          pushd ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+          zip -r ../deployment.zip .
+          popd
 
       - name: 'Deploy to Azure Function App'
         uses: Azure/functions-action@v1
         with:
           app-name: func701
-          package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
-          scm-do-build-during-deployment: false
-
-
+          package: 'deployment.zip'
