@@ -23,10 +23,23 @@ jobs:
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
-            - name: 'Install dependencies into package'
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/requirements.txt --target ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/.python_packages/lib/site-packages
+            jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout repository'
+        uses: actions/checkout@v3
+
+      - name: 'Login to Azure'
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: 'Deploy to Azure Function App'
+        uses: Azure/functions-action@v1
+        with:
+          app-name: func701
+          package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
 
       - name: 'Login to Azure'
         uses: azure/login@v1
