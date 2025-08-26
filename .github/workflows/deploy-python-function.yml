@@ -9,6 +9,7 @@ on:
 
 env:
   AZURE_FUNCTIONAPP_PACKAGE_PATH: 'funcx-v7'
+  PYTHON_VERSION: '3.10'
 
 jobs:
   build-and-deploy:
@@ -22,14 +23,21 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: 'Create deployment package'
+      - name: 'Set up Python version'
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: 'Install dependencies'
         run: |
-          pushd ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
-          zip -r ../deployment.zip .
-          popd
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt --target=".python_packages/lib/site-packages"
+        working-directory: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
 
       - name: 'Deploy to Azure Function App'
         uses: Azure/functions-action@v1
         with:
           app-name: func701
-          package: 'deployment.zip'
+          package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+          scm-do-build-during-deployment: false
+          enable-oryx-build: false
