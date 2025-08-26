@@ -26,12 +26,7 @@ def get_username_from_db(user_id):
         mysql_user = os.environ.get("MYSQL_USER")
         mysql_password = os.environ.get("MYSQL_PASSWORD")
         mysql_database = os.environ.get("MYSQL_DATABASE")
-        # Construct the absolute path to the certificate file relative to the script's location
-        script_dir = os.path.dirname(__file__)
-        default_ssl_ca_path = os.path.join(script_dir, 'cert_combined_ca.pem')
-
-        # Use the environment variable if provided, otherwise use the default path
-        mysql_ssl_ca_path = os.environ.get("DB_SSL_CA_PATH", default_ssl_ca_path)
+        mysql_ssl_ca_path = os.environ.get("DB_SSL_CA_PATH")
 
         # Log the variables to check if they are loaded correctly
         logging.info(f"Attempting MySQL connection with Host: {mysql_host}, User: {mysql_user}, DB: {mysql_database}, SSL Path: {mysql_ssl_ca_path}")
@@ -41,18 +36,19 @@ def get_username_from_db(user_id):
             return None
 
         # More specific SSL handling for debugging
-        ssl_options = {} # Default to an empty dictionary for SSL
-        if mysql_ssl_ca_path and os.path.exists(mysql_ssl_ca_path):
-            logging.info(f"SSL CA path found at: {mysql_ssl_ca_path}")
-            ssl_options = {'ca': mysql_ssl_ca_path}
-        elif mysql_ssl_ca_path:
-            logging.error(f"SSL CA path specified but file not found at: {mysql_ssl_ca_path}")
-            # If a path is specified but not found, we might not want to connect at all.
-            # Depending on security requirements, you might return None here.
-            # For now, we'll log the error and attempt connection without the cert.
-            pass
+        ssl_options = None
+        if mysql_ssl_ca_path:
+            # Check if file exists - NOTE: This path is relative to the function's execution context
+            if os.path.exists(mysql_ssl_ca_path):
+                logging.info(f"SSL CA path found at: {mysql_ssl_ca_path}")
+                ssl_options = {'ca': mysql_ssl_ca_path}
+            else:
+                logging.error(f"SSL CA path specified but file not found at: {mysql_ssl_ca_path}")
+                return None # Exit if cert is specified but not found
         else:
-            logging.info("No SSL CA path provided or found, proceeding with default SSL.")
+            # The original logic when no path is provided
+            logging.info("No SSL CA path provided, using ssl=True.")
+            ssl_options = True
 
         # Connect to the database
         logging.info("Connecting to MySQL...")
