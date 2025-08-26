@@ -23,11 +23,10 @@ jobs:
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
-      - name: 'Install dependencies'
+            - name: 'Install dependencies into package'
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
-        working-directory: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+          pip install -r ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/requirements.txt --target ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/.python_packages/lib/site-packages
 
       - name: 'Login to Azure'
         uses: azure/login@v1
@@ -39,4 +38,6 @@ jobs:
         with:
           app-name: func701
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+          scm-do-build-during-deployment: false
+
 
